@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,22 @@ Route::get('/authentication-login', function () {
 Route::get('/authentication-register', function () {
     return view('authentication-register');
 });
+
+Route::get('/index', function () {
+    return view('index');
+});
+
+// Usuarios
+Route::get('/users', [UserController::class, 'getUsers']);
+
+// Nuevo usuario
+Route::get('/user/new', [UserController::class, 'newUser']);
+
+//Acceso a un usuario concreto
+// Route::get('/user/{id}', function ($id) {
+//     return "Mostrando usuario: {$id}";
+// })->where('id', '[0-9]+');
+Route::get('/user/{user}',[UserController::class, 'getUser'])
+    ->where('id', '[0-9]+');
+
+
