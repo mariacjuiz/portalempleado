@@ -25,10 +25,10 @@ class VacationFactory extends Factory
 
         return [
             'user_id' => User::all()->random()->id,
-            'startdate' => '01/08/2021',
-            'enddate'  => '15/08/2021',
-            'validate' => "false",
-            "create_at" => now()
+            'startdate' => '2021/01/02',
+            'enddate'  => '2021/01/03',
+            'validate' => "SI",
+            "created_at" => now()
         ];
     }
 

@@ -31,7 +31,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{url('/company/news') }}">
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -59,25 +59,39 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 {{-- <a class="dropdown-item" href="index">Actualidad</a> --}}
-                                <a class="dropdown-item" href="{{url('/index') }}">Actualidad</a>
+                                <a class="dropdown-item" href="{{url('/company/news') }}">Actualidad</a>
                                 <div class="dropdown-divider"></div>
                                 {{-- <a class="dropdown-item" href="promo">Promociones</a> --}}
-                                <a class="dropdown-item" href="{{url('/promo') }}">Promociones</a>
+                                <a class="dropdown-item" href="{{url('/company/promo') }}">Promociones</a>
                                 {{-- <a class="dropdown-item" href="course">Cursos</a> --}}
-                                <a class="dropdown-item" href="{{url('/course') }}">Cursos</a>
+                                <a class="dropdown-item" href="{{url('/company/course') }}">Cursos</a>
                             </div>
                         </li>
-                        @if (Auth::user()->department == 1)
+                        {{-- Interpretamos que el usuario es administrador si el departamento al que pertecene es RRHH --}}
+                        @if (Auth::user()->is_admin == true)
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-none d-md-block">Usuarios <i class="fa fa-angle-down"></i></span>
                                 <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    {{-- <a class="dropdown-item" href="index">Actualidad</a> --}}
-                                    <a class="dropdown-item" href="{{url('/users') }}">Usuarios</a>
-                                    {{-- <a class="dropdown-item" href="promo">Promociones</a> --}}
                                     <a class="dropdown-item" href="{{url('/users/create') }}">Nuevo usuario</a>
+                                    <a class="dropdown-item" href="{{url('/users') }}">Usuarios</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{url('/absences/show') }}">Validar ausencias</a>
+                                    <a class="dropdown-item" href="{{url('/vacations/show') }}">Validar vacaciones</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-md-block">Mantenimientos <i class="fa fa-angle-down"></i></span>
+                                <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {{-- <a class="dropdown-item" href="index">Actualidad</a> --}}
+                                    <a class="dropdown-item" href="{{url('/departments') }}">Departamentos</a>
+                                    {{-- <a class="dropdown-item" href="promo">Promociones</a> --}}
+                                    <a class="dropdown-item" href="{{url('/hours') }}">Tipos de hora</a>
                                 </div>
                             </li>
                         @endif
@@ -166,12 +180,13 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">PERFIL</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="salary" aria-expanded="false"><i class="mdi mdi-coin"></i><span class="hide-menu">Nóminas</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="absence" aria-expanded="false"><i class="mdi mdi-medical-bag"></i><span class="hide-menu">Ausencias</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="vacation" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Vacaciones</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="clocking" aria-expanded="false"><i class="mdi mdi-timer"></i><span class="hide-menu">Fichajes</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="book" aria-expanded="false"><i class="mdi mdi-bookmark-check"></i><span class="hide-menu">Reserva de salas</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/profile" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">PERFIL</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/salary" aria-expanded="false"><i class="mdi mdi-coin"></i><span class="hide-menu">Nóminas</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/absences" aria-expanded="false"><i class="mdi mdi-medical-bag"></i><span class="hide-menu">Ausencias</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/vacations" aria-expanded="false"><i class="mdi mdi-calendar"></i><span class="hide-menu">Vacaciones</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/checks" aria-expanded="false"><i class="mdi mdi-timer"></i><span class="hide-menu">Fichajes</span></a></li>
+                        {{-- No me dio tiempo a implementar la reserva de salas --}}
+                        {{-- <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/book" aria-expanded="false" ><i class="mdi mdi-bookmark-check"></i><span class="hide-menu">Reserva de salas</span></a></li> --}}
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

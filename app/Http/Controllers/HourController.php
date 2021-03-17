@@ -14,7 +14,9 @@ class HourController extends Controller
      */
     public function index()
     {
-        //
+        $hours['hours']=Hour::orderBy('id', 'asc')
+                            ->simplepaginate(10);
+        return view('hours.index',$hours);
     }
 
     /**
@@ -24,7 +26,7 @@ class HourController extends Controller
      */
     public function create()
     {
-        //
+        return view('hours.create');
     }
 
     /**
@@ -35,7 +37,20 @@ class HourController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validacion=[
+            'name' => 'required|string|max:255',
+        ];
+         //Mensajes que retornamos en caso de que no se cumplan el atributo establecido anteriormente
+         $Mensaje=["required"=>'El :attribute es obligatorio'];
+         //Con este método aplicamos la validación
+         $this->validate($request, $validacion, $Mensaje);
+
+
+        //Obtenemos los datos del departamento sin el campo token
+        $datosHora=request()->except('_token');
+        Hour::insert($datosHora);
+        //redireccionamos a la pantalla principal de tipos de hora devolviendo un mensaje satisfactorio.
+        return redirect('hours')->with('Mensaje', 'Tipo de hora registrado correctamente.');
     }
 
     /**
@@ -55,9 +70,11 @@ class HourController extends Controller
      * @param  \App\Models\Hour  $hour
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hour $hour)
+    public function edit($id)
     {
-        //
+        //Buscamos el dpto con el ID , devuelve toda la información
+        $hour=Hour::findOrFail($id);
+        return view('hours.edit', compact('hour'));
     }
 
     /**
@@ -67,9 +84,16 @@ class HourController extends Controller
      * @param  \App\Models\Hour  $hour
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hour $hour)
+    public function update(Request $request, $id)
     {
-        //
+         //Obtenemos los datos del dpto sin el campo token y el metodo (recuperamos los datos)
+         $datosHour=request()->except(['_token', '_method']);
+
+         //buscamos el id solicitado y actualizamos los datos
+         Hour::where('id','=',$id)->update($datosHour);
+         //Buscamos el usurio con el ID , devuelve toda la información (recargar la información)
+         $hour=Hour::findOrFail($id);
+         return redirect('hours');
     }
 
     /**
@@ -78,8 +102,10 @@ class HourController extends Controller
      * @param  \App\Models\Hour  $hour
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hour $hour)
+    public function destroy($id)
     {
-        //
+        $hour=Hour::findOrFail($id);
+        Hour::destroy($id);
+        return redirect('hours');
     }
 }

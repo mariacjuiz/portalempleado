@@ -27,9 +27,9 @@ class HomeController extends Controller
         return view('index');
     }
 
-    public function salary()
-    {
-        return view('salary');
-    }
+    // public function salary()
+    // {
+    //     return view('salary');
+    // }
 
 }

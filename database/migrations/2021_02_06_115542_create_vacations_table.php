@@ -21,7 +21,7 @@ class CreateVacationsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->date("startdate");
             $table->date("enddate");
-            $table->boolean("validate");
+            $table->string('validate',2);
             $table->timestamps();
         });
     }

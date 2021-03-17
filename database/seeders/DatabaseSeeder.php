@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Http\Controllers\VacationController;
 use App\Models\Company;
 use App\Models\Companytype;
-use App\Models\Department;
+
+use App\Models\Month;
 use App\Models\Room;
+use App\Models\Hour;
 use App\Models\Salary;
 use App\Models\User;
 use App\Models\Vacation;
@@ -23,49 +25,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        //USUARIOS
-        echo 'Crear usuario Maria ---------';
-        User::factory()->create([
-        //User::factory()->create([
-            'cif' => '53303160Q',
-            'name' => 'María Castro Juíz',
-            'email' => 'mariacjuiz@gmail.com',
-            'password' => 'maria1234',
-            'adress' => 'Juan Diaz Porlier, 17, 4R',
-            'phone' => '654654654',
-            'photo' => 'id2.jpg',
-            'department' => '1'
-        ]);
-        echo 'Crear total 20 registros';
-        //Número de registroa que vamos a crear
-        User::factory(20)->create();
 
-        //DEPARTAMENTOS
-        echo 'Crear departamentos ---------';
-        Department::factory()->create([
-            'name' => 'Recursos Humanos',
-            'user_id' => '1',
-        ]);
-        Department::factory()->create([
-            'name' => 'Informática',
-            'user_id' => '2',
-        ]);
-        Department::factory()->create([
-            'name' => 'Dirección',
-            'user_id' => '3',
-        ]);
-        Department::factory()->create([
-            'name' => 'Administración',
-            'user_id' => '4',
-        ]);
-        Department::factory()->create([
-            'name' => 'Ventas',
-            'user_id' => '5',
-        ]);
-        Department::factory()->create([
-            'name' => 'Logística',
-            'user_id' => '6',
-        ]);
 
         //TIPOS DE NOTICIAS
         echo 'Crear Tipos de noticias ---------';
@@ -101,22 +61,89 @@ class DatabaseSeeder extends Seeder
 
         //TIPOS DE HORAS
         echo 'Crear Tipos de horas de ausencias ---------';
-        Companytype::factory()->create([
+        Hour::factory()->create([
             'name' => 'Ausencia médica',
         ]);
-        Companytype::factory()->create([
+        Hour::factory()->create([
             'name' => 'Mudanza',
         ]);
-        Companytype::factory()->create([
+        Hour::factory()->create([
             'name' => 'Asuntos propios',
         ]);
-        Companytype::factory()->create([
+        Hour::factory()->create([
             'name' => 'Gestiones administrativas',
         ]);
 
         //NOMINAS
         echo 'Crear Nominas ---------';
         Salary::factory(200)->create();
+
+        //VACACIONES
+        echo 'Crear Vacaciones ---------';
+        Vacation::factory(200)->create();
+
+        //MESES
+        echo 'Crear Meses---------';
+        Month::factory()->create([
+            'name' => 'Enero',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Febrero',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Marzo',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Abril',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Mayo',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Junio',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Julio',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Agosto',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Septiembre',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Octubre',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Noviembre',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        Month::factory()->create([
+            'name' => 'Diciembre',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }
 

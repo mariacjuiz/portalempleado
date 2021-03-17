@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Salary;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SalaryController extends Controller
@@ -15,10 +15,22 @@ class SalaryController extends Controller
      */
     public function index()
     {
-        // return BookResource::collection(Book::orderByDesc('id')->paginate(20));
-        // return new ReviewCollection(Review::all());
-        $salary['salary']=Salary::paginate(100);
-        return view('salary.index', $salary);
+
+        //obtenemos las nóminas de el usuario logueado ordenados por año y mes
+        $userId = Auth::user()->id;
+        $salaries['salaries']=Salary::where('user_id', $userId)
+                        ->join('months', 'salaries.month', '=', 'months.id')
+                        ->orderBy('year', 'desc')
+                        ->orderBy('month', 'asc')
+                        ->simplePaginate(10);
+        return view('salary', $salaries);
+
+
+        // $users = DB::table('users')
+        //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
+        //     ->join('orders', 'users.id', '=', 'orders.user_id')
+        //     ->select('users.*', 'contacts.phone', 'orders.price')
+        //     ->get();
 
     }
 

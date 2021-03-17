@@ -26,7 +26,7 @@
             {{ csrf_field() }} <!-- token de seguridad / llave de acceso -->
 
             <!---- Vista form ---->
-            @include('users.form', ['Accion'=>'Alta'])
+            @include('users.form', ['Accion'=>'Alta', 'Origen' => 'Mnto'])
             <!---- Vista form ---->
 
         </form >

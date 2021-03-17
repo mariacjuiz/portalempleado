@@ -14,7 +14,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+
+
     }
 
     /**
@@ -35,7 +36,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -46,7 +47,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+
     }
 
     /**
@@ -55,9 +56,11 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
-        //
+        //Buscamos la new con el ID , devuelve toda la información
+        $company=Company::findOrFail($id);
+        return view('company.edit');
     }
 
     /**
@@ -82,4 +85,44 @@ class CompanyController extends Controller
     {
         //
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+   public function getNews()
+   {
+    $companies['companies']=Company::where('ctype_id', 1)
+        ->orderBy('created_at', 'desc')
+        ->simplePaginate(10);
+    return view('company/news', $companies);
+
+   }
+       /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCourses()
+    {
+     $companies['companies']=Company::where('ctype_id', 4)
+         ->orderBy('created_at', 'desc')
+         ->simplePaginate(10);
+     return view('company/course', $companies);
+
+    }
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+   public function getPromos()
+   {
+    $companies['companies']=Company::where('ctype_id', 3)
+        ->orderBy('created_at', 'desc')
+        ->simplePaginate(10);
+    return view('company/promo', $companies);
+
+   }
 }

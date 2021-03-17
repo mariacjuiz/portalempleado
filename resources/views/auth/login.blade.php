@@ -84,8 +84,8 @@
                                 <div class="form-group">
                                     <div class="p-t-20">
                                         <button class="btn btn-success float-right" type="submit">{{ __('Iniciar sesión') }}</button>
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-info" href="{{ route('password.request') }}">
+                                        @if (Route::has('password.confirm'))
+                                            <a class="btn btn-info" href="{{ route('password.confirm') }}">
                                                 {{ __('Recordar contraseña') }}
                                             </a>
                                         @endif

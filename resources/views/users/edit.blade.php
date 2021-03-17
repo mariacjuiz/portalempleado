@@ -14,24 +14,18 @@
         </div>
     </div>
     <div class="container-fluid">
-
-        {{-- @if(count($errors)>0)
-        <div class="alert alert-danger" role="alert">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-        </div>
-        @endif --}}
-
         <form action= "{{ url('/users/'.$user->id)}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }} <!-- token de seguridad / llave de acceso -->
             {{-- Accedemos directamente al método UPDATE del controlador del usuario --}}
             {{ method_field('PATCH') }}
 
             <!---- Vista form ---->
-            @include('users.form', ['Accion'=>'Modificar'])
+            @if (Auth::user()->is_admin==1)
+                @include('users.form', ['Accion'=>'Modificar', 'Origen' => 'Mnto'])
+            @else
+                @include('users.form', ['Accion'=>'Modificar', 'Origen' => 'Perfil'])
+            @endif
+
             <!---- Vista form ---->
 
         </form >
